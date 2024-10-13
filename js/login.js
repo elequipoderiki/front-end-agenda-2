@@ -1,46 +1,65 @@
 // var user = 'riki@gmail.com'
 
-function validateForm() {
-    // const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+function salir() {
+    sessionStorage.removeItem('mysesion')
+    //limpiar nombre y opcion de salir de sesion
+    $('#usuarioActual').text('')
+    $('#logOut').text('')
     
-     
-    const emailError = document.getElementById(
-        "email-error"
-    );
-    const passwordError = document.getElementById(
-        "password-error"
-    );
-     
-
-    emailError.textContent = "";
-    passwordError.textContent = "";
-
-    let isValid = true;
-
-    if (email === "" || !email.includes("@")) {
-        emailError.textContent =
-            "Por favor ingrese un email válido.";
-        isValid = false;
-    }
-
-    if (password === "" || password.length < 6) {
-        passwordError.textContent =
-            "Por favor ingrese password con al menos 6 caracteres.";
-        isValid = false;
-    }
-
-    return isValid;
+    // $('#main-box').load("login.html") /******************** */
+    // window.location.href = 'index.html'
 
 }
 
-$("form").submit(function(e) {
+function registrar() {
+    $('#main-box').load("register.html")
+}
 
-	    e.preventDefault();
-		if (validateForm()) {
-			user = $(this).find('input[name="email"]').val()
-			// console.log(user)
-	        $('#main-box').load("tareas.html")
-		} 
+$("form").submit(async function(e) {
+
+    e.preventDefault();
+    if (validateForm()) {
+        $('#login-error').text('Espere por favor')
+
+        usuarioActual = $(this).find('input[name="email"]').val()
+        plainPassword = $(this).find('input[name="password"]').val()
+        // si existe en  base de datos navegar a sus tareas
+        userName = '';
+        endpointGetUser = `https://todolistapi2.azurewebsites.net/users/${usuarioActual}`
+        
+        await axios.get(endpointGetUser)
+            .then(function (response) {
+                userName = response.data.nombre
+            }).catch( function(err) {
+                console.log(err.message);
+                $('#login-error').text('Credenciales no válidas. Regístrese')
+            })
+
+        if (userName) {
+            // checkear password
+            endpointCheckPass = `https://todolistapi2.azurewebsites.net/users/checkpassword/${usuarioActual}/${plainPassword}`
+
+            await axios.get(endpointCheckPass).then(function (response) {
+                if(response.data.isValid) {
+                    // guardarlo en session storage
+                    sessionStorage.setItem('mysesion',usuarioActual)
+                    //pintar nombre y opcion de salir de sesion
+                    $('#usuarioActual').text(userName)
+                    $('#logOut').text('Log Out')
+    
+                    // $('#main-box').load("tareas.html") //***************** */
+                    window.location.href = 'tareas.html'
+                    // return true
+                }   else {
+                    $('#login-error').text('Credenciales no válidas. Regístrese')
+                }                     
+                
+            }).catch( function(err) {
+                console.log(err.message);
+                $('#login-error').text('Credenciales no válidas. Regístrese')
+            })
+
+        }         
+  
+    } 
 })

@@ -1,3 +1,11 @@
+function salir() {
+    sessionStorage.removeItem('mysesion')
+    //limpiar nombre y opcion de salir de sesion
+    $('#usuarioActual').text('')
+    $('#logOut').text('')
+    
+    $('#main-box').load("login.html")
+}
 
 // Seleccionamos los elementos necesarios
 const listaTareas = document.getElementById('listaTareas');
@@ -11,6 +19,7 @@ const descripcionTareaInput = document.getElementById('descripcionTarea');
 
 // Función para renderizar la lista de tareas
 function renderizarTareas(tareas) {
+
     listaTareas.innerHTML = ''; // Limpiamos la lista
     
     tareas.forEach(tarea => {
@@ -148,11 +157,11 @@ function eliminarTarea(id) {
 }
 
 // funcion para obtener las tareas del usuario actual
-async function traerTareasUsuario() {
+async function traerTareasUsuario(user) {
     try {
         // traer usuario actual
-        usuario = "riki@gmail.com" //temporal
-        endpoint = `https://todolistapi2.azurewebsites.net/tasks/byuser/${usuario}`;
+        // usuario = "riki@gmail.com" //temporal
+        endpoint = `https://todolistapi2.azurewebsites.net/tasks/byuser/${user}`;
         
         const response = await axios.get(endpoint)
     
@@ -166,6 +175,7 @@ async function traerTareasUsuario() {
 // Función para agregar una nueva tarea con nombre y descripción
 formTarea.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const user = sessionStorage.getItem('mysesion')
     
     const nombreTarea = nombreTareaInput.value.trim();
     const descripcionTarea = descripcionTareaInput.value.trim();
@@ -175,7 +185,7 @@ formTarea.addEventListener('submit', async (e) => {
     axios.post(endpoint, {
         nombre: nombreTarea,
         descripcion: descripcionTarea,
-        usuario: 'riki@gmail.com'
+        usuario: user
         })
         .then(function (response) {
             // Limpiamos el formulario y cerramos el modal
@@ -192,8 +202,12 @@ formTarea.addEventListener('submit', async (e) => {
 })
 
 
-function renderTasks() {
-    traerTareasUsuario().then(res => renderizarTareas(res))
+async function renderTasks() {
+    user = sessionStorage.getItem('mysesion')
+
+    tareas = await traerTareasUsuario(user)
+
+    renderizarTareas(tareas)
 }
 
 // const user = 'riki@gmail.com'
