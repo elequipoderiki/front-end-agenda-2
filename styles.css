@@ -1,0 +1,14 @@
+   /* Ajustamos el ancho de las tareas para pantallas pequeñas */
+   .list-group-item {
+    flex-wrap: wrap;
+}
+
+.list-group-item div:first-child {
+    flex: 1 1 auto;
+}
+
+/* Ajuste para botones en pantallas pequeñas */
+.list-group-item div:last-child button {
+    margin-bottom: 5px;
+}
+
