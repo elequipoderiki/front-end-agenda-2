@@ -11,7 +11,6 @@ $("form").submit( async function(e) {
     if (validateForm()) {
         // si existe en  base de datos indicar que elija otro email
         
-        /************************************* */
         $('#login-error').text('Espere por favor')
 
         usuarioActual = $(this).find('input[name="email"]').val()
@@ -52,7 +51,6 @@ $("form").submit( async function(e) {
 
 
         }
-        /************************************* */        
         
     } 
     

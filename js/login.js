@@ -1,4 +1,3 @@
-// var user = 'riki@gmail.com'
 
 function salir() {
     sessionStorage.removeItem('mysesion')
@@ -6,9 +5,6 @@ function salir() {
     $('#usuarioActual').text('')
     $('#logOut').text('')
     
-    // $('#main-box').load("login.html") /******************** */
-    // window.location.href = 'index.html'
-
 }
 
 function registrar() {
@@ -46,8 +42,6 @@ $("form").submit(async function(e) {
                     //pintar nombre y opcion de salir de sesion
                     $('#usuarioActual').text(userName)
                     $('#logOut').text('Log Out')
-    
-                    // $('#main-box').load("tareas.html") //***************** */
                     window.location.href = 'tareas.html'
                     // return true
                 }   else {

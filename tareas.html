@@ -38,9 +38,6 @@
     </div>
     <div class="d-flex flex-wrap " id="listaTareas">
 
-        <!-- <ul id="listaTareas" class="list-group"> -->
-            <!-- Aquí se agregarán las tareas -->
-        <!-- </ul> -->
     </div>
 </div>
 
@@ -62,6 +59,9 @@
                         <label for="descripcionTarea" class="form-label">Descripción de la tarea</label>
                         <textarea class="form-control" id="descripcionTarea" rows="3" required></textarea>
                     </div>
+
+                    <div id="modal-advice"></div>
+                    
                     <button type="submit" class="btn btn-primary w-100">Agregar</button> <!-- Hice el botón ancho completo en pantallas pequeñas -->
                 </form>
             </div>
@@ -89,7 +89,9 @@
         if (user1) {
             //pintar nombre y opcion de salir de sesion
             $('#main-box').load("tareas.html")
+
             $('#usuarioActual').text(user1)
+            
             // si hay entonces navegar a sus tareas 
             $('#logOut').text('Log Out')
         } else {

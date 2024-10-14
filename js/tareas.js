@@ -14,8 +14,6 @@ const nombreTareaInput = document.getElementById('nombreTarea');
 const descripcionTareaInput = document.getElementById('descripcionTarea');
 
 // Inicializamos las tareas (vacío al inicio)
-// let tareas = [];
-// console.log('usuario actual ',user)
 
 // Función para renderizar la lista de tareas
 function renderizarTareas(tareas) {
@@ -44,24 +42,15 @@ function renderizarTareas(tareas) {
 
         // Aplicamos estilos según el estado de la tarea
         if (tarea.estado === 'Pendiente') {
-            // li.classList.add('border-success');
             li.classList.add('bg-success');
             li.classList.add('text-white');
              
-            // spanNombre.classList.add('text-white');
-            // spanDescripcion.classList.add('text-white');
         } else if (tarea.estado === 'En progreso') {
-            // li.classList.add('border-warning');
             li.classList.add('text-dark');
             li.classList.add('bg-warning');
-            // spanNombre.classList.add('text-dark');
-            // spanDescripcion.classList.add('text-dark');
         } else if (tarea.estado === 'Completado') {
-            // li.classList.add('border-danger');
             li.classList.add('bg-danger');
             li.classList.add('text-white');
-            // spanNombre.classList.add('text-white');
-            // spanDescripcion.classList.add('text-white');
         }
 
         divTexto.appendChild(spanNombre);
@@ -115,7 +104,6 @@ function renderizarTareas(tareas) {
         divBotones.appendChild(btnEliminar);
         divTexto.appendChild(divBotones)
         li.appendChild(divTexto);
-        // li.appendChild(divBotones);
         listaTareas.appendChild(li);
     });
 
@@ -146,7 +134,6 @@ function eliminarTarea(id) {
     endpoint = `https://todolistapi2.azurewebsites.net/tasks/remove/${id}`
     axios.delete(endpoint)
         .then(function (response) {
-        //    console.log(response)
             window.location.reload()
                 
         
@@ -160,7 +147,6 @@ function eliminarTarea(id) {
 async function traerTareasUsuario(user) {
     try {
         // traer usuario actual
-        // usuario = "riki@gmail.com" //temporal
         endpoint = `https://todolistapi2.azurewebsites.net/tasks/byuser/${user}`;
         
         const response = await axios.get(endpoint)
@@ -175,6 +161,7 @@ async function traerTareasUsuario(user) {
 // Función para agregar una nueva tarea con nombre y descripción
 formTarea.addEventListener('submit', async (e) => {
     e.preventDefault();
+
     const user = sessionStorage.getItem('mysesion')
     
     const nombreTarea = nombreTareaInput.value.trim();
@@ -210,5 +197,4 @@ async function renderTasks() {
     renderizarTareas(tareas)
 }
 
-// const user = 'riki@gmail.com'
 renderTasks()
