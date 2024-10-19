@@ -1,5 +1,5 @@
    /* Ajustamos el ancho de las tareas para pantallas pequeñas */
-   .list-group-item {
+.list-group-item {
     flex-wrap: wrap;
 }
 
@@ -12,3 +12,111 @@
     margin-bottom: 5px;
 }
 
+/* media queries: laptop */ 
+@media (max-width: 1080px) {
+ 
+  .container #listaTareas .card {
+    max-width: 30%;
+  }
+  
+  .container #listaTareas .card-title {
+    margin: 1rem auto;
+    text-transform: capitalize;
+  }
+
+  #seccionBotones {
+    margin-top: 1.5rem;
+  }
+  #seccionBotones .btn-danger {
+    width: 70%;
+  }; 
+
+}
+
+/* tablet */
+@media (max-width: 780px) {
+
+  .navbar-login {
+    display: flex;
+    justify-content: center;
+  }
+
+  .container #listaTareas .card {
+    max-width: 45%;
+  }
+  
+  .container #listaTareas .card-title {
+    margin: 1rem auto;
+    text-transform: capitalize;
+  }
+
+  #seccionBotones {
+    margin-top: 1.5rem;
+  }
+  #seccionBotones .btn-danger {
+    width: 70%;
+  }; 
+    
+  #navbarNav {
+    display: contents;
+  }
+
+  #navbarNav #usuarioActual {
+    display: none;
+  }
+
+  #navbarNav #logOut {
+    display: inline;
+  }
+
+  
+}
+
+/*mobile */
+@media (max-width: 480px){
+
+  #seccionBotones {
+    justify-content: center;
+  }
+
+   #seccionBotones .btn-success, .btn-warning {
+    min-width: 43%;
+  }; 
+
+  footer {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .container #listaTareas .card {
+    max-width: 100%;
+  }
+  
+  #navbarNav {
+    display: contents;
+  }
+
+  #navbarNav #usuarioActual {
+    display: none;
+  }
+
+  #navbarNav #logOut {
+    display: inline;
+  }
+
+  .navbar-login {
+    display: flex;
+    justify-content: center;
+  }
+
+  .navbar {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .navbar .display-4 {
+    font-size: larger;
+    /*padding-left: 0px;*/
+  }
+
+}

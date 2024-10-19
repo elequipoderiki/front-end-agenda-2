@@ -22,12 +22,12 @@ function renderizarTareas(tareas) {
     
     tareas.forEach(tarea => {
         const li = document.createElement('div');
-        li.className = `card  me-2 mb-2`;
-        li.style = "max-width: 25rem"
+      li.className = `card  me-2 mb-2 align-self-start`;
+        // li.style = "max-width: 25rem"
 
         // Contenedor de texto de la tarea
         const divTexto = document.createElement('div');
-        divTexto.className = 'card-body'
+      divTexto.className = 'card-body'
         const spanNombre = document.createElement('h5');
         spanNombre.textContent = tarea.nombre;
         spanNombre.className = 'card-title text-center'
@@ -60,9 +60,10 @@ function renderizarTareas(tareas) {
         // Botones de acción
         const divBotones = document.createElement('div');
         divBotones.className = 'd-flex-column'
+        divBotones.id = 'seccionBotones'
         // Botón de iniciar tarea
         const btnIniciar = document.createElement('button');
-        btnIniciar.className = 'btn btn-success me-2 ';
+        btnIniciar.className = 'btn btn-success me-2 mb-2';
         btnIniciar.textContent = 'Pendiente';
         if (tarea.estado == 'Pendiente'){
              btnIniciar.classList.add('border-white')
@@ -72,7 +73,7 @@ function renderizarTareas(tareas) {
 
         // Botón de tarea en progreso
         const btnProgreso = document.createElement('button');
-        btnProgreso.className = 'btn btn-warning me-2';
+        btnProgreso.className = 'btn btn-warning me-2 mb-2';
         btnProgreso.textContent = 'En progreso';
         if (tarea.estado == 'En progreso'){
             btnProgreso.classList.add('border-white')
@@ -82,7 +83,7 @@ function renderizarTareas(tareas) {
 
         // Botón de finalizar tarea
         const btnFinalizar = document.createElement('button');
-        btnFinalizar.className = 'btn btn-danger me-2';
+        btnFinalizar.className = 'btn btn-danger me-2 mb-2';
         btnFinalizar.textContent = 'Finalizar';
         if (tarea.estado == 'Completado'){
             btnFinalizar.classList.add('border-white')
