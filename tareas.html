@@ -31,7 +31,31 @@
 
 <div class="container mt-5">
     <h2 class="text-center">Lista de Tareas</h2>
-    <div class="d-flex justify-content-md-end justify-content-center mb-3">
+    <!-- <div class="d-flex justify-content-md-end justify-content-center mb-3"> -->
+    <div class="d-flex justify-content-between mb-3">
+
+        <!-- dropdown  -->
+        <div class="dropdown">
+          <button class="btn btn-info mt-md-2 mb-md-2 mt-3 mb-3 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Ver por estado
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><button class="dropdown-item"
+                onclick="seleccionarPorEstado('Pendiente')"
+              >Pendientes</button></li>
+            <li><button class="dropdown-item" 
+                onclick="seleccionarPorEstado('En progreso')"
+              >En Progreso</button></li>
+            <li><button class="dropdown-item" 
+                onclick="seleccionarPorEstado('Completado')"
+              >Completados</button></li>
+            <li><button class="dropdown-item" 
+                onclick="seleccionarPorEstado('')"
+              >Todas las tareas</button></li>
+          </ul>
+        </div>
+        <!-- end dropdown  -->
         <button id="agregarTareaBtn" class="btn btn-primary mt-md-2 mb-md-2 mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#tareaModal">
         <i class="bi bi-plus-lg"></i>
           Agregar Tarea</button>
@@ -117,8 +141,8 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-<script src="js/tareas.js"></script>
 <script src="js/getKeywords.js"> </script>
+<script src="js/tareas.js"></script>
 
 <script >
     $(document).ready( function() {

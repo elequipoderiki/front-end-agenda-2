@@ -33,7 +33,6 @@ function renderizarTareas(tareas) {
         editCard.textContent = tarea.nombre;
         editCard.setAttribute("idTarea", tarea._id);
         editCard.addEventListener("click", function(e) { guardarValoresAEditar(tarea._id, tarea.nombre, tarea.descripcion)})
-        // editCard.addEventListener("click", function(e) { guardarValoresAEditar(this.getAttribute("idTarea"), tarea.nombre, tarea.descripcion)})
         editCard.setAttribute("data-bs-toggle", "modal")
         editCard.setAttribute("data-bs-target", "#tareaEditModal")
         containerNombre.className = 'card-title text-center'
@@ -47,17 +46,23 @@ function renderizarTareas(tareas) {
         spanKeywords.textContent = 'Keywords: ' + keywords;
         spanKeywords.className = 'card-subtitle mb-3 mt-3'
 
+        li.setAttribute('estado', tarea.estado)        
+
         // Aplicamos estilos según el estado de la tarea
         if (tarea.estado === 'Pendiente') {
             li.classList.add('bg-success');
             li.classList.add('text-white');
-             
-        } else if (tarea.estado === 'En progreso') {
+
+          } else if (tarea.estado === 'En progreso') {
             li.classList.add('text-dark');
             li.classList.add('bg-warning');
+
         } else if (tarea.estado === 'Completado') {
             li.classList.add('bg-danger');
             li.classList.add('text-white');
+
+            // li.classList.add('visually-hidden');
+
         }
 
         divTexto.appendChild(containerNombre);
@@ -240,6 +245,18 @@ formEditTarea.addEventListener('submit', async (e) => {
 
 })
 
+function seleccionarPorEstado(estadoSeleccionado) {
+  cards = document.getElementsByClassName('card')
+
+  for (let card of cards) {
+    card.classList.remove('visually-hidden')
+
+    if (estadoSeleccionado && card.getAttribute('estado') != estadoSeleccionado)
+      card.classList.add('visually-hidden')
+  }
+
+
+}
 
 async function renderTasks() {
     user = sessionStorage.getItem('mysesion')
