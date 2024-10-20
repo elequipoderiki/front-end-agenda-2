@@ -69,6 +69,35 @@
     </div>
 </div>
 
+
+<!-- Modal para editar tarea -->
+<div class="modal fade" id="tareaEditModal" tabindex="-1" aria-labelledby="tareaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Cambié el tamaño del modal para que sea más amigable en pantallas más grandes -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tareaModalLabel">Editar Tarea</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditTarea">
+                    <div class="mb-3">
+                        <label for="nombreTarea" class="form-label">Nombre de la tarea</label>
+                        <input type="text" class="form-control" id="nombreTareaEdit" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcionTarea" class="form-label">Descripción de la tarea</label>
+                        <textarea class="form-control" id="descripcionTareaEdit" rows="3" required></textarea>
+                    </div>
+                    <input type="hidden" id="idEditar">
+                    <div id="modal-advice"></div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Guardar</button> <!-- Hice el botón ancho completo en pantallas pequeñas -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>
 
 <footer class="py-3  bg-light container my-4">

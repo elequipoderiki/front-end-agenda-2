@@ -12,6 +12,7 @@ const listaTareas = document.getElementById('listaTareas');
 const formTarea = document.getElementById('formTarea');
 const nombreTareaInput = document.getElementById('nombreTarea');
 const descripcionTareaInput = document.getElementById('descripcionTarea');
+const formEditTarea = document.getElementById('formEditTarea');
 
 // Inicializamos las tareas (vacío al inicio)
 
@@ -22,15 +23,21 @@ function renderizarTareas(tareas) {
     
     tareas.forEach(tarea => {
         const li = document.createElement('div');
-      li.className = `card  me-2 mb-2 align-self-start`;
-        // li.style = "max-width: 25rem"
+        li.className = `card  me-2 mb-2 align-self-start`;
 
         // Contenedor de texto de la tarea
         const divTexto = document.createElement('div');
-      divTexto.className = 'card-body'
-        const spanNombre = document.createElement('h5');
-        spanNombre.textContent = tarea.nombre;
-        spanNombre.className = 'card-title text-center'
+        divTexto.className = 'card-body'
+        const containerNombre = document.createElement('h5');
+        const editCard = document.createElement('a');
+        editCard.textContent = tarea.nombre;
+        editCard.setAttribute("idTarea", tarea._id);
+        editCard.addEventListener("click", function(e) { guardarValoresAEditar(tarea._id, tarea.nombre, tarea.descripcion)})
+        // editCard.addEventListener("click", function(e) { guardarValoresAEditar(this.getAttribute("idTarea"), tarea.nombre, tarea.descripcion)})
+        editCard.setAttribute("data-bs-toggle", "modal")
+        editCard.setAttribute("data-bs-target", "#tareaEditModal")
+        containerNombre.className = 'card-title text-center'
+        containerNombre.appendChild(editCard)
         const spanDescripcion = document.createElement('p');
         spanDescripcion.textContent = tarea.descripcion;
         spanDescripcion.className = 'card-text';
@@ -53,7 +60,7 @@ function renderizarTareas(tareas) {
             li.classList.add('text-white');
         }
 
-        divTexto.appendChild(spanNombre);
+        divTexto.appendChild(containerNombre);
         divTexto.appendChild(spanDescripcion);
         divTexto.appendChild(spanKeywords)
 
@@ -88,7 +95,8 @@ function renderizarTareas(tareas) {
         if (tarea.estado == 'Completado'){
             btnFinalizar.classList.add('border-white')
             btnFinalizar.classList.add('border')
-       }
+            btnFinalizar.textContent = 'Finalizado'
+        } 
 
         btnFinalizar.addEventListener('click', () => cambiarEstadoTarea(tarea._id, 'Completado'));
 
@@ -127,6 +135,15 @@ function cambiarEstadoTarea(id, nuevoEstado) {
             console.error(err.message);
         })
 
+}
+
+function guardarValoresAEditar(id, nombre, descripcion) {
+  campoid = document.getElementById("idEditar")
+  campoid.value = id
+  const nombreTareaInput = document.getElementById('nombreTareaEdit');
+  const descripcionTareaInput = document.getElementById('descripcionTareaEdit');
+  nombreTareaInput.value = nombre;
+  descripcionTareaInput.value = descripcion;
 }
 
 // Función para eliminar una tarea
@@ -183,6 +200,40 @@ formTarea.addEventListener('submit', async (e) => {
             window.location.reload()
                 
         
+        }).catch( function(err) {
+            console.error(err.message);
+        })
+
+})
+
+
+// Función para editar una tarea 
+formEditTarea.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const nombreTareaInput = document.getElementById('nombreTareaEdit');
+    const descripcionTareaInput = document.getElementById('descripcionTareaEdit');
+    const id = document.getElementById('idEditar').value;
+
+    const user = sessionStorage.getItem('mysesion')
+    
+    const nombreTarea = nombreTareaInput.value.trim();
+    const descripcionTarea = descripcionTareaInput.value.trim();
+
+    // console.log(id, ' ', user, ' ', nombreTarea, ' ', descripcionTarea)
+    endpoint = `https://todolistapi2.azurewebsites.net/tasks/edit/${id}`
+    axios.put(endpoint, {
+        nombre: nombreTarea,
+        descripcion: descripcionTarea,
+        usuario: user
+        })
+        .then(function (response) {
+            // Limpiamos el formulario y cerramos el modal
+            nombreTareaInput.value = '';
+            descripcionTareaInput.value = '';
+            const modal = bootstrap.Modal.getInstance(document.getElementById('tareaModal'));
+            window.location.reload()
+                        
         }).catch( function(err) {
             console.error(err.message);
         })

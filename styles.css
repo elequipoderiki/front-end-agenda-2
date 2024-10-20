@@ -12,8 +12,17 @@
     margin-bottom: 5px;
 }
 
+.container #listaTareas .card-title:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.container #listaTareas .card-title:hover:after {
+  content: 	"✎";
+}
+
 /* media queries: laptop */ 
-@media (max-width: 1080px) {
+@media (max-width: 1180px) {
  
   .container #listaTareas .card {
     max-width: 30%;
@@ -35,6 +44,10 @@
 
 /* tablet */
 @media (max-width: 780px) {
+
+  .container #listaTareas .card-title:after {
+    content: 	"✎";
+  }
 
   .navbar-login {
     display: flex;
@@ -62,13 +75,17 @@
   }
 
   #navbarNav #usuarioActual {
-    display: none;
+    display: inline;
   }
 
   #navbarNav #logOut {
     display: inline;
   }
 
+  .navbar .display-4 {
+    font-size: xx-large;
+    /*padding-left: 0px;*/
+  }
   
 }
 

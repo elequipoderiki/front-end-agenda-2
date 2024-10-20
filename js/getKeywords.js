@@ -13,14 +13,15 @@ const months = lowerMonths.concat(upperMonths)
  
 function getPossibleMainWords(someText) {
     var words = someText.split(' ')
-    const preps = ['el', 'la', 'los', 'las', 'al']
+    const preps = ['el', 'la', 'los', 'las', 'al', 'a', 'para', 'por']
     res = []
     
     preps.forEach((prep) => {
         indexPrep = words.indexOf(prep)
         if (indexPrep != -1) {
             if (indexPrep < words.length-1 && isNaN(words[indexPrep+1])) {
-                res.push(words[indexPrep+1])
+                if (!preps.includes(words[indexPrep+1]) )
+                  res.push(words[indexPrep+1])
                 
             }
         }
@@ -36,7 +37,7 @@ function isCapitalize (word) {
 }
 
 
-function getMainWords(someText) {
+function getCapitalizeWords(someText) {
     var words = someText.split(' ')
     
     res = []
@@ -80,16 +81,17 @@ function getMonthsRelatedSentences(someText) {
 
 function extractKeywords(someText) {
     res1 = getMonthsRelatedSentences(someText)
-    res2 = getMainWords(someText)
+    res2 = getCapitalizeWords(someText)
     prepPrefixWords = getPossibleMainWords(someText)
     res4 = []
+
     res1.forEach(word1 => {
-        res4.push(word1)
+        res4.push(word1);
         res2.forEach(word2 => {
             if (!word1.includes(word2)) res4.push(word2)  
-          
         })  
     })
+
     res5 = getDaysFromSentence(someText)
     res6 = res4.concat(res5)
     
