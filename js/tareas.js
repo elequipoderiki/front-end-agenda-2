@@ -95,8 +95,9 @@ function renderizarTareas(tareas) {
         const btnEliminar = document.createElement('button');
         btnEliminar.className = 'btn btn-dark';
         btnEliminar.innerHTML = '<i class="bi bi-trash"></i>'; // Ícono de basura
-        btnEliminar.addEventListener('click', () => eliminarTarea(tarea._id));
-
+        btnEliminar.addEventListener('click', () => definirTareaAEliminar(tarea._id, tarea.nombre));
+        btnEliminar.setAttribute('data-bs-target',"#borrarModal")
+        btnEliminar.setAttribute('data-bs-toggle',"modal")
         
         divBotones.appendChild(btnIniciar);
         divBotones.appendChild(btnProgreso);
@@ -128,10 +129,23 @@ function cambiarEstadoTarea(id, nuevoEstado) {
 
 }
 
-// Función para eliminar una tarea
-function eliminarTarea(id) {
+function definirTareaAEliminar(id, nombre) {
+    campoId = document.getElementById('tareaABorrar')
+    if(campoId)
+        campoId.value = id
 
+    divnombre = document.getElementById('modal-message')
+    divnombre.innerHTML = `Eliminar tarea ${nombre}?`
+    
+}
+
+// Función para eliminar una tarea
+function eliminarTarea() {
+    
+    id  =  document.getElementById('tareaABorrar').value
+    
     endpoint = `https://todolistapi2.azurewebsites.net/tasks/remove/${id}`
+    
     axios.delete(endpoint)
         .then(function (response) {
             window.location.reload()
@@ -140,7 +154,7 @@ function eliminarTarea(id) {
         }).catch( function(err) {
             console.error(err.message);
         })
-
+    
 }
 
 // funcion para obtener las tareas del usuario actual
@@ -161,6 +175,8 @@ async function traerTareasUsuario(user) {
 // Función para agregar una nueva tarea con nombre y descripción
 formTarea.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    document.getElementById('modal-advice').innerHTML = 'Espere por favor';
 
     const user = sessionStorage.getItem('mysesion')
     

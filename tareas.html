@@ -60,7 +60,7 @@
                         <textarea class="form-control" id="descripcionTarea" rows="3" required></textarea>
                     </div>
 
-                    <div id="modal-advice"></div>
+                    <div id="modal-advice" class="mb-3"></div>
                     
                     <button type="submit" class="btn btn-primary w-100">Agregar</button> <!-- Hice el botón ancho completo en pantallas pequeñas -->
                 </form>
@@ -69,6 +69,33 @@
     </div>
 </div>
 
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#borrarModal">
+    Launch demo modal
+</button> -->
+
+<!-- modal para borrar tarea  -->
+<div class="modal" tabindex="-1" id="borrarModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <input type="hidden" value="" id="tareaABorrar">
+        <input type="hidden" value="" id="nombreABorrar">
+        <div class="modal-header">
+          <h5 class="modal-title">Atención!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- <p>Borrar tarea x?</p> -->
+           <div id="modal-message"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" onclick="eliminarTarea()" class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+<!-- end modal borrar tarea  -->
 </div>
 </body>
 
