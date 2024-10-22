@@ -25,6 +25,16 @@
   content: 	"✎";
 }
 
+.container #listaTareas .card-title {
+  margin: 1rem auto;
+  text-transform: capitalize;
+}
+
+#seccionBotones {
+  margin-top: 1.5rem;
+}
+
+
 /* media queries: laptop */ 
 @media (max-width: 1180px) {
  
@@ -98,7 +108,7 @@
   #dropdownMenuButton1 {
     width: 100%;
   }
-  
+
   #seccionBotones {
     justify-content: center;
   }
