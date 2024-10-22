@@ -30,9 +30,9 @@
         
 
 <div class="container mt-5">
-    <h2 class="text-center">Lista de Tareas</h2>
+    <h2 class="text-center" id="tituloLista">Lista de Tareas</h2>
     <!-- <div class="d-flex justify-content-md-end justify-content-center mb-3"> -->
-    <div class="d-flex justify-content-between mb-3">
+    <div class="d-flex flex-md-row flex-column justify-content-md-between mb-3">
 
         <!-- dropdown  -->
         <div class="dropdown">
@@ -84,7 +84,7 @@
                         <textarea class="form-control" id="descripcionTarea" rows="3" required></textarea>
                     </div>
 
-                    <div id="modal-advice"></div>
+                    <div id="modal-advice" class="mb-3"></div>
                     
                     <button type="submit" class="btn btn-primary w-100">Agregar</button> <!-- Hice el botón ancho completo en pantallas pequeñas -->
                 </form>
@@ -113,7 +113,7 @@
                         <textarea class="form-control" id="descripcionTareaEdit" rows="3" required></textarea>
                     </div>
                     <input type="hidden" id="idEditar">
-                    <div id="modal-advice"></div>
+                    <div id="modal-advice" class="mb-3"></div>
                     
                     <button type="submit" class="btn btn-primary w-100">Guardar</button> <!-- Hice el botón ancho completo en pantallas pequeñas -->
                 </form>
@@ -121,6 +121,29 @@
         </div>
     </div>
 </div>
+
+<!-- modal para borrar tarea  -->
+<div class="modal" tabindex="-1" id="borrarModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <input type="hidden" value="" id="tareaABorrar">
+        <input type="hidden" value="" id="nombreABorrar">
+        <div class="modal-header">
+          <h5 class="modal-title">Atención!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- <p>Borrar tarea x?</p> -->
+           <div id="modal-message"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" onclick="eliminarTarea()" class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+<!-- end modal borrar tarea  -->
 
 </div>
 
@@ -147,13 +170,14 @@
 <script >
     $(document).ready( function() {
         // chequear si hay mail en sessionStorage 
-        user1 = sessionStorage.getItem('mysesion')
+        user1 = JSON.parse(sessionStorage.getItem('userData'))
         if (user1) {
             //pintar nombre y opcion de salir de sesion
-            $('#main-box').load("tareas.html")
+            // $('#main-box').load("tareas.html")
 
-            $('#usuarioActual').text(user1)
-            
+            // $('#usuarioActual').text(user1.name)
+            capitalizedName = user1.name.charAt(0).toUpperCase() + user1.name.slice(1);
+            $('#tituloLista').text(`Tareas de ${capitalizedName}`)
             // si hay entonces navegar a sus tareas 
             $('#logOut').text('Log Out')
         } else {

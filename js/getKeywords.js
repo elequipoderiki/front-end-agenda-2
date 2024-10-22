@@ -84,13 +84,16 @@ function extractKeywords(someText) {
     res2 = getCapitalizeWords(someText)
     prepPrefixWords = getPossibleMainWords(someText)
     res4 = []
-
-    res1.forEach(word1 => {
-        res4.push(word1);
-        res2.forEach(word2 => {
-            if (!word1.includes(word2)) res4.push(word2)  
-        })  
-    })
+    if (res1.length > 0) {
+        res1.forEach(word1 => {
+            res4.push(word1);
+            res2.forEach(word2 => {
+                if (!word1.includes(word2)) res4.push(word2)  
+            })  
+        })
+    } else {
+        res4 =res2
+    }
 
     res5 = getDaysFromSentence(someText)
     res6 = res4.concat(res5)

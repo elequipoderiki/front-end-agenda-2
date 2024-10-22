@@ -3,6 +3,10 @@
     flex-wrap: wrap;
 }
 
+.container #listaTareas .card {
+    max-width: 33%;
+  }
+
 .list-group-item div:first-child {
     flex: 1 1 auto;
 }
@@ -91,6 +95,10 @@
 /*mobile */
 @media (max-width: 480px){
 
+  #dropdownMenuButton1 {
+    width: 100%;
+  }
+  
   #seccionBotones {
     justify-content: center;
   }

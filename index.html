@@ -56,11 +56,13 @@
 <script >
     $(document).ready( function() {
         // chequear si hay mail en sessionStorage 
-        user1 = sessionStorage.getItem('mysesion')
+        user1 = JSON.parse(sessionStorage.getItem('userData'))
         if (user1) {
             //pintar nombre y opcion de salir de sesion
-            $('#main-box').load("tareas.html")
-            $('#usuarioActual').text(user1)
+            // $('#main-box').load("tareas.html")
+            window.location.href = 'tareas.html'
+
+            // $('#usuarioActual').text(user1)
             // si hay entonces navegar a sus tareas 
             $('#logOut').text('Log Out')
         } else {

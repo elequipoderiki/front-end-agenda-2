@@ -1,6 +1,6 @@
 
 function salir() {
-    sessionStorage.removeItem('mysesion')
+    sessionStorage.removeItem('userData')
     //limpiar nombre y opcion de salir de sesion
     $('#usuarioActual').text('')
     $('#logOut').text('')
@@ -20,7 +20,7 @@ $("form").submit(async function(e) {
         usuarioActual = $(this).find('input[name="email"]').val()
         plainPassword = $(this).find('input[name="password"]').val()
         // si existe en  base de datos navegar a sus tareas
-        userName = '';
+        // userName = '';
         endpointGetUser = `https://todolistapi2.azurewebsites.net/users/${usuarioActual}`
         
         await axios.get(endpointGetUser)
@@ -35,10 +35,12 @@ $("form").submit(async function(e) {
             // checkear password
             endpointCheckPass = `https://todolistapi2.azurewebsites.net/users/checkpassword/${usuarioActual}/${plainPassword}`
 
+            
             await axios.get(endpointCheckPass).then(function (response) {
                 if(response.data.isValid) {
                     // guardarlo en session storage
-                    sessionStorage.setItem('mysesion',usuarioActual)
+                    userData = {'name': userName, 'email': usuarioActual}
+                    sessionStorage.setItem('userData',JSON.stringify(userData))
                     //pintar nombre y opcion de salir de sesion
                     $('#usuarioActual').text(userName)
                     $('#logOut').text('Log Out')

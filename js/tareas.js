@@ -1,5 +1,5 @@
 function salir() {
-    sessionStorage.removeItem('mysesion')
+    sessionStorage.removeItem('userData')
     //limpiar nombre y opcion de salir de sesion
     $('#usuarioActual').text('')
     $('#logOut').text('')
@@ -109,8 +109,11 @@ function renderizarTareas(tareas) {
         const btnEliminar = document.createElement('button');
         btnEliminar.className = 'btn btn-dark';
         btnEliminar.innerHTML = '<i class="bi bi-trash"></i>'; // Ícono de basura
-        btnEliminar.addEventListener('click', () => eliminarTarea(tarea._id));
-
+        // btnEliminar.addEventListener('click', () => eliminarTarea(tarea._id));
+        btnEliminar.addEventListener('click', () => definirTareaAEliminar(tarea._id, tarea.nombre));
+        btnEliminar.setAttribute('data-bs-target',"#borrarModal")
+        btnEliminar.setAttribute('data-bs-toggle',"modal")
+        
         
         divBotones.appendChild(btnIniciar);
         divBotones.appendChild(btnProgreso);
@@ -151,10 +154,23 @@ function guardarValoresAEditar(id, nombre, descripcion) {
   descripcionTareaInput.value = descripcion;
 }
 
-// Función para eliminar una tarea
-function eliminarTarea(id) {
+function definirTareaAEliminar(id, nombre) {
+    campoId = document.getElementById('tareaABorrar')
+    if(campoId)
+        campoId.value = id
 
+    divnombre = document.getElementById('modal-message')
+    divnombre.innerHTML = `Eliminar tarea ${nombre}?`
+    
+}
+
+// Función para eliminar una tarea
+function eliminarTarea() {
+    
+    id  =  document.getElementById('tareaABorrar').value
+    
     endpoint = `https://todolistapi2.azurewebsites.net/tasks/remove/${id}`
+    
     axios.delete(endpoint)
         .then(function (response) {
             window.location.reload()
@@ -163,7 +179,7 @@ function eliminarTarea(id) {
         }).catch( function(err) {
             console.error(err.message);
         })
-
+    
 }
 
 // funcion para obtener las tareas del usuario actual
@@ -185,7 +201,8 @@ async function traerTareasUsuario(user) {
 formTarea.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const user = sessionStorage.getItem('mysesion')
+    document.getElementById('modal-advice').innerHTML = 'Espere por favor';
+    const  user = JSON.parse(sessionStorage.getItem('userData')).email
     
     const nombreTarea = nombreTareaInput.value.trim();
     const descripcionTarea = descripcionTareaInput.value.trim();
@@ -220,7 +237,7 @@ formEditTarea.addEventListener('submit', async (e) => {
     const descripcionTareaInput = document.getElementById('descripcionTareaEdit');
     const id = document.getElementById('idEditar').value;
 
-    const user = sessionStorage.getItem('mysesion')
+    const user = JSON.parse(sessionStorage.getItem('userData')).email
     
     const nombreTarea = nombreTareaInput.value.trim();
     const descripcionTarea = descripcionTareaInput.value.trim();
@@ -259,9 +276,9 @@ function seleccionarPorEstado(estadoSeleccionado) {
 }
 
 async function renderTasks() {
-    user = sessionStorage.getItem('mysesion')
+    user = JSON.parse(sessionStorage.getItem('userData'))
 
-    tareas = await traerTareasUsuario(user)
+    tareas = await traerTareasUsuario(user.email)
 
     renderizarTareas(tareas)
 }
