@@ -42,7 +42,6 @@ $("form").submit(async function(e) {
                     userData = {'name': userName, 'email': usuarioActual}
                     sessionStorage.setItem('userData',JSON.stringify(userData))
                     //pintar nombre y opcion de salir de sesion
-                    $('#usuarioActual').text(userName)
                     $('#logOut').text('Log Out')
                     window.location.href = 'tareas.html'
                     // return true
