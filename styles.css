@@ -3,6 +3,19 @@
     flex-wrap: wrap;
 }
 
+#listaTareas {
+  min-height: 34vh;
+}
+
+#main-contacto {
+  min-height: 50vh;
+}
+
+.display-4 a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .container #listaTareas .card {
     max-width: 33%;
   }

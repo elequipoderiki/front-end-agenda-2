@@ -13,7 +13,7 @@ const months = lowerMonths.concat(upperMonths)
  
 function getPossibleMainWords(someText) {
     var words = someText.split(' ')
-    const preps = ['el', 'la', 'los', 'las', 'al', 'a', 'para', 'por']
+    const preps = ['el', 'la', 'los', 'las', 'al', 'a', 'un', 'una']
     res = []
     
     preps.forEach((prep) => {

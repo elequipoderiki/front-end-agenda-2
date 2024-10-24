@@ -233,6 +233,8 @@ formTarea.addEventListener('submit', async (e) => {
 formEditTarea.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    document.getElementById('modal-advice-edit').innerHTML = 'Espere por favor';
+
     const nombreTareaInput = document.getElementById('nombreTareaEdit');
     const descripcionTareaInput = document.getElementById('descripcionTareaEdit');
     const id = document.getElementById('idEditar').value;
