@@ -7,6 +7,10 @@
   min-height: 34vh;
 }
 
+#main-box {
+  min-height: 50vh;
+}
+
 #main-contacto {
   min-height: 50vh;
 }
@@ -112,7 +116,7 @@
   .navbar .display-4 {
     font-size: xx-large;
   }
-  
+
 }
 
 /*mobile */
